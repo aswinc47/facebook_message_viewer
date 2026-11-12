@@ -1,0 +1,58 @@
+<section class="message-layout">
+
+  <!-- Side panel -->
+  <div class="message-sidebar"
+       [class.hide-mobile]="selectedUser?.length">
+
+    @if (currentMessages?.length) {
+      <cdk-virtual-scroll-viewport
+        itemSize="40"
+        class="sidebar-viewport">
+
+        <div
+          *cdkVirtualFor="let messageSender of currentMessages; trackBy: trackByIndex"
+          class="message-item"
+          [ngClass]="{'selected': selectedUser == messageSender}"
+          (click)="loadMessages(messageSender)">
+
+          <span class="message-count">
+            {{ messageLength(messageSender) }}
+          </span>
+
+          <span class="sender-name">
+            {{ fileUploadSvc.fixText(messageSender) }}
+          </span>
+
+        </div>
+      </cdk-virtual-scroll-viewport>
+    } @else {
+      <div class="no-messages">No messages found</div>
+    }
+
+  </div>
+
+  <!-- Chat panel -->
+  <div class="chat-panel" [class.show-mobile]="selectedUser?.length">
+
+    @if (selectedUser?.length && currentMessageData()) {
+
+      <div class="mobile-back">
+        <button (click)="selectedUser = ''">
+          ← Back to messages
+        </button>
+      </div>
+
+      <app-chat-window
+        [senterName]="selectedUser"
+        [chatData]="currentMessageData()?.[selectedUser]">
+      </app-chat-window>
+
+    } @else {
+      <div class="select-message">
+        <p>Select a conversation to view messages</p>
+      </div>
+    }
+
+  </div>
+
+</section>

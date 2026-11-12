@@ -1,0 +1,174 @@
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.message-layout {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  height: 90dvh;
+  overflow: hidden;
+  background: #f4f6f9;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+/* Left sidebar */
+.message-sidebar {
+  width: 25%;
+  min-width: 230px;
+  max-width: 350px;
+  height: 100%;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.sidebar-viewport {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.message-item {
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  overflow: hidden;
+}
+
+.message-item:hover {
+  background-color: rgb(223, 248, 228);
+}
+
+.message-item.selected {
+  background-color: rgb(227, 248, 196);
+}
+
+.message-count {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: #64748b;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 3px 6px;
+}
+
+.sender-name {
+  font-size: 13px;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right chat panel */
+.chat-panel {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-panel app-chat-window {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.select-message {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.no-messages {
+  padding: 20px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+/* Mobile back button hidden on desktop */
+.mobile-back {
+  display: none;
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .message-sidebar {
+    width: 32%;
+    min-width: 180px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .message-layout {
+    height: 100vh;
+    height: 100dvh;
+    border: none;
+    border-radius: 0;
+    position: relative;
+  }
+
+  .message-sidebar {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    border-right: none;
+  }
+
+  .message-sidebar.hide-mobile {
+    display: none;
+  }
+
+  .chat-panel {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chat-panel.show-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-back {
+    display: block;
+    flex-shrink: 0;
+    height: 42px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 4px 10px;
+    box-sizing: border-box;
+  }
+
+  .mobile-back button {
+    height: 34px;
+    padding: 0 12px;
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .chat-panel app-chat-window {
+    flex: 1;
+    min-height: 0;
+    height: 0;
+  }
+}

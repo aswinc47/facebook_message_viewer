@@ -1,0 +1,127 @@
+<div class="chat-window">
+
+  <header class="chat-head">
+    <div class="user-info">
+      <h3>{{ senterName() }}</h3>
+      <button (click)="openSearch()">search</button>
+    </div>
+  </header>
+
+  <!-- Search -->
+   @if(showSearch){
+       <div class="search-container">
+         <input
+           type="text"
+           placeholder="Search messages..."
+           [value]="searchText()"
+           (input)="onSearch($any($event.target).value)"
+         />
+     
+         @if (searchText().trim()) {
+           <div class="search-results">
+     
+             @for (result of searchResults(); track result.index) {
+               <div
+                 class="search-result"
+                 (click)="goToMessage(result.index)"
+               >
+                 <div class="result-sender">
+                   {{ result.message.sender_name }}
+                 </div>
+     
+                 <div class="result-content">
+                   {{ result.message.content }}
+                 </div>
+     
+                 <div class="result-time">
+                   {{ formatDateTime(result.message.timestamp_ms) }}
+                 </div>
+               </div>
+             }
+     
+             @if (!searchResults().length) {
+               <div class="no-results">
+                 No matching messages found
+               </div>
+             }
+     
+           </div>
+         }
+       </div>
+   }
+
+  <!-- Messages -->
+  <cdk-virtual-scroll-viewport
+    itemSize="50"
+    class="viewport"
+    #scrollContainer>
+
+    <div
+      *cdkVirtualFor="let message of chatMessages(); trackBy: trackByIndex"
+      class="message-row">
+
+      @if (message?.content?.length) {
+        <div
+          class="message-box"
+          [ngClass]="{
+            'left-align': message?.sender_name == senterName() || message?.sender_name?.length == 0 || message?.sender_name == 'Facebook user'
+          }">
+
+          <div class="message-bubble">
+            <span>{{ fileReadSvc.fixText(message?.content) }}</span>
+
+            <div class="message-time">
+              {{ formatDateTime(message.timestamp_ms) }}
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+
+  </cdk-virtual-scroll-viewport>
+
+</div>
+<!-- <div class="chat-window">
+  @if (chatMessages().length) {
+    <header class="chat-head">
+      <div class="avatar">
+        {{ senterName()?.charAt(0) }}
+      </div>
+      <div class="user-info">
+        <h3>{{ senterName() }}</h3>
+        <small>Chat conversation</small>
+      </div>
+    </header>
+
+    <cdk-virtual-scroll-viewport
+      itemSize="50"
+      class="viewport"
+      #scrollContainer>
+
+      <div
+        class="message-row"
+        *cdkVirtualFor="let message of chatMessages(); trackBy: trackByIndex">
+
+        @if (message?.content?.length) {
+          <div
+            class="message-box"
+            [ngClass]="{
+              'left-align': message?.sender_name == senterName() || message?.sender_name?.length == 0 || message?.sender_name == 'Facebook user'
+            }">
+
+            <div class="message-bubble">
+              <span>{{ fileReadSvc.fixText(message?.content) }}</span>
+              <div class="message-time">
+                  {{ formatDateTime(message?.timestamp_ms) }}
+              </div>
+            </div>
+
+          </div>
+        }
+      </div>
+    </cdk-virtual-scroll-viewport>
+  } @else {
+    <div class="empty-chat">No messages yet</div>
+  }
+</div> -->

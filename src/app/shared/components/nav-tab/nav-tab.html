@@ -1,0 +1,16 @@
+<button [disabled]="!messagesSize('messages')" 
+        (click)="viewMessages('messages')">
+        Messages {{messagesSize('messages')}}
+</button>
+<button [disabled]="!messagesSize('blockedMessages')" 
+        (click)="viewMessages('blockedMessages')">
+        Blocked Messages {{messagesSize('blockedMessages')}}
+</button>
+<button [disabled]="!messagesSize('otherMessages')" 
+        (click)="viewMessages('otherMessages')">
+        Other Messages {{messagesSize('otherMessages')}}
+</button>
+<button [disabled]="!messagesSize('groupMessages')" 
+        (click)="viewMessages('groupMessages')">
+        Group Messages {{messagesSize('groupMessages')}}
+</button>
